@@ -1,7 +1,4 @@
 import * as Three from "three";
-
-console.log(Three);
-
 /**
  * 目标：了解 three 最基本的三要素
  * 1. 场景
@@ -26,9 +23,21 @@ camera.position.set(0, 0, 10);
 // 将相机添加到场景中
 scene.add(camera);
 
-// 使用渲染器
-const renderer = new Three.WebGL1Renderer();
+// 往场景添加物体 - 立方缓冲几何体
+const geometry = new Three.BoxGeometry(1, 1, 1);
+// 设置立方体的材质
+const material = new Three.MeshBasicMaterial({ color: "pink" });
+// 根据几何体和材质创建物体
+const cubeBox = new Three.Mesh(geometry, material);
+// 将几何体添加到场景中
+scene.add(cubeBox);
 
+// 初始化渲染器
+const renderer = new Three.WebGLRenderer();
+// 设置渲染尺寸的大小
 renderer.setSize(window.innerWidth, window.innerHeight);
-
+// 将渲染器添加到dom节点中
 document.getElementById("app")?.appendChild(renderer.domElement);
+
+// 使用渲染器 将场景和相机渲染出来
+renderer.render(scene, camera);
