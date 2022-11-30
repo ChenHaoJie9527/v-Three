@@ -1,4 +1,6 @@
 import * as Three from "three";
+// 导入轨道控制器
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 /**
  * 目标：了解 three 最基本的三要素
  * 1. 场景
@@ -39,5 +41,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // 将渲染器添加到dom节点中
 document.getElementById("app")?.appendChild(renderer.domElement);
 
-// 使用渲染器 将场景和相机渲染出来
-renderer.render(scene, camera);
+// 创建轨道控制器
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// 渲染函数
+function render() {
+  // 使用渲染器 将场景和相机渲染出来
+  renderer.render(scene, camera);
+  // 渲染下一帧 调用render 函数
+  window.requestAnimationFrame(render);
+}
+
+render();
